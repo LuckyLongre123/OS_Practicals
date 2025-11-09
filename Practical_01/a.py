@@ -5,7 +5,6 @@ pid = os.fork()
 
 if pid < 0:
     print("fork failed!")
-    return
 
 if pid == 0:
     print("this is child process")

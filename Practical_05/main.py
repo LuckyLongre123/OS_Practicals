@@ -1,5 +1,8 @@
 import os
 
+source = "./example.txt"
+destination = "./example_copy.txt"
+
 try:
     src_fd = os.open(source, os.O_RDONLY)
     dest_fd = os.open(destination, os.O_WRONLY | os.O_CREAT | os.O_TRUNC, 0o644)
