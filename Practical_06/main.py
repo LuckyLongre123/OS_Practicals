@@ -1,33 +1,31 @@
-processes = [
-    {'pid': 1, 'arrival': 0, 'burst': 5},
-    {'pid': 2, 'arrival': 1, 'burst': 3},
-    {'pid': 3, 'arrival': 2, 'burst': 8},
-    {'pid': 4, 'arrival': 3, 'burst': 6}
-]
-processes.sort(key=lambda x: x['arrival'])
+num_processes = int(input("Enter number of processes: "))
+burst_times = []
+index = 0
+while index < num_processes:
+    burst_times.append(int(input("Enter burst time for process " + str(index+1) + ": ")))
+    index += 1
 
-current_time = 0
-total_waiting = 0
-total_turnaround = 0
+waiting_times = [0] * num_processes
+turnaround_times = [0] * num_processes
 
-print("\nPID\tArrival\tBurst\tStart\tFinish\tWaiting\tTurnaround")
-print("-" * 70)
+i = 1
+while i < num_processes:
+    waiting_times[i] = waiting_times[i-1] + burst_times[i-1]
+    i += 1
 
-for p in processes:
-    if current_time < p['arrival']:
-        current_time = p['arrival']
-    start_time = current_time
-    finish_time = current_time + p['burst']
-    waiting_time = start_time - p['arrival']
-    turnaround_time = finish_time - p['arrival']
-    total_waiting += waiting_time
-    total_turnaround += turnaround_time
-    print("{}\t{}\t{}\t{}\t{}\t{}\t{}".format(
-        p['pid'], p['arrival'], p['burst'],
-        start_time, finish_time, waiting_time, turnaround_time
-    ))
-    current_time = finish_time
+i = 0
+while i < num_processes:
+    turnaround_times[i] = waiting_times[i] + burst_times[i]
+    i += 1
 
-n = len(processes)
-print("\nAverage Waiting Time: {:.2f}".format(total_waiting / n))
-print("Average Turnaround Time: {:.2f}".format(total_turnaround / n))
+print("\nFCFS (First Come First Served) CPU Scheduling")
+print("Process\tBurst Time\tWaiting Time\tTurnaround Time")
+i = 0
+while i < num_processes:
+    print(str(i+1) + "\t" + str(burst_times[i]) + "\t\t" + str(waiting_times[i]) + "\t\t" + str(turnaround_times[i]))
+    i += 1
+
+avg_wt = sum(waiting_times) / num_processes
+avg_tat = sum(turnaround_times) / num_processes
+print("\nAverage Waiting Time: " + str(avg_wt))
+print("Average Turnaround Time: " + str(avg_tat))
