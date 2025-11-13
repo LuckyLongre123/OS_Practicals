@@ -1,31 +1,31 @@
-num_processes = int(input("Enter number of processes: "))
-burst_times = []
+n = int(input("Enter number of processes: "))
+b_t = []
 index = 0
-while index < num_processes:
-    burst_times.append(int(input("Enter burst time for process " + str(index+1) + ": ")))
+while index < n:
+    b_t.append(int(input("Enter burst time for process " + str(index+1) + ": ")))
     index += 1
 
-waiting_times = [0] * num_processes
-turnaround_times = [0] * num_processes
+w_t = [0] * n
+t_t = [0] * n
 
 i = 1
-while i < num_processes:
-    waiting_times[i] = waiting_times[i-1] + burst_times[i-1]
+while i < n:
+    w_t[i] = w_t[i-1] + b_t[i-1]
     i += 1
 
 i = 0
-while i < num_processes:
-    turnaround_times[i] = waiting_times[i] + burst_times[i]
+while i < n:
+    t_t[i] = w_t[i] + b_t[i]
     i += 1
 
 print("\nFCFS (First Come First Served) CPU Scheduling")
 print("Process\tBurst Time\tWaiting Time\tTurnaround Time")
 i = 0
-while i < num_processes:
-    print(str(i+1) + "\t" + str(burst_times[i]) + "\t\t" + str(waiting_times[i]) + "\t\t" + str(turnaround_times[i]))
+while i < n:
+    print(str(i+1) + "\t" + str(b_t[i]) + "\t\t" + str(w_t[i]) + "\t\t" + str(t_t[i]))
     i += 1
 
-avg_wt = sum(waiting_times) / num_processes
-avg_tat = sum(turnaround_times) / num_processes
+avg_wt = sum(w_t) / n
+avg_tat = sum(t_t) / n
 print("\nAverage Waiting Time: " + str(avg_wt))
 print("Average Turnaround Time: " + str(avg_tat))

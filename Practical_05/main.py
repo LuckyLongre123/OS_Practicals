@@ -15,4 +15,5 @@ while True:
 
 os.close(fd1)
 os.close(fd2)
+
 print("File copied successfully.")

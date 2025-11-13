@@ -9,6 +9,7 @@ if pid < 0:
 else:
     if pid == 0:
         print("this is child process")
+
         my_pid = os.getpid()
         print("child's PID: " + str(my_pid))
     else:
